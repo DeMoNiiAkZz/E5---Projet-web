@@ -16,8 +16,9 @@ class admin
         }
     }
 
-    private function urlchemin(){
-        return "C:/xampp/htdocs/LCS_Dash/";
+    private function urlchemin()
+    {
+        return "C:/wamp64/www/LCS_Dash/";
     }
 
     public function addAdmin($nom,$prenom,$email,$password, $cp, $ville, $adresse){

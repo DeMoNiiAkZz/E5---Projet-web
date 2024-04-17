@@ -18,7 +18,7 @@ class conges
 
     private function urlchemin()
     {
-        return "C:/xampp/htdocs/LCS_Dash/";
+        return "C:/wamp64/www/LCS_Dash/";
     }
 
     public function getAllConges()
