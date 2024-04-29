@@ -2,7 +2,8 @@
 
 # Ce projet est la partie dashboard admin de l'application mobile réalise en PHP MVC 
 
-Projet WEB (en lien à l'appli mobile obligatoire) : https://github.com/DeMoNiiAkZz/E5---Projet-web
+- Ce projet est réalisé en PHP MVC avec comme Framework Bootstrap
+
 
 **Pré-requis :**
 
