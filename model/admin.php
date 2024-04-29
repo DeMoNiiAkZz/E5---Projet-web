@@ -18,7 +18,8 @@ class admin
 
     private function urlchemin()
     {
-        return "C:/wamp64/www/LCS_Dash/";
+        $config = parse_ini_file("config.ini");
+        return $config['path'];
     }
 
     public function addAdmin($nom,$prenom,$email,$password, $cp, $ville, $adresse){

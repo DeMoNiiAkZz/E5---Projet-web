@@ -7,7 +7,8 @@ class intervention
 
     private function urlchemin()
     {
-        return "C:/wamp64/www/LCS_Dash/";
+        $config = parse_ini_file("config.ini");
+        return $config['path'];
     }
 
     public function __construct()
