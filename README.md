@@ -28,7 +28,7 @@ Projet WEB (en lien à l'appli mobile obligatoire) : https://github.com/DeMoNiiA
 - Vous atterissez vers la page de connexion, pour se connecter :
   - E-mail : jesuisadmin@gmail.com
   - Mot de passe : 3wa5Q?2La8AYYX@upWAw
-- Vous accéderez à l'interface admin avec différents onglets
+- Vous accéderez à l'interface admin avec différents onglets (j'ai supprimé tous les onglets qui m'appartenaient pas sauf "Synthèse" faisant office de page d'accueil)
 - Pour l'ajout d'une intervention dans un planning, vous pouvez prendre le client "jesuisclient@gmail.com" ou "jesuisclient2@gmail.com" puis cliquer sur celui-ci pour confirmer
 - Pour afficher des interventions, il y a deux solutions :
   - Rendez-vous dans la base de donnée dans la table "intervention" et remplacer les date_interventions par la date actuelle
