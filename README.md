@@ -21,6 +21,8 @@
 
 - Insérer le code SQL qui se situe dans le projet mobile dans le répertoire "SQL" ce qui donne comme chemin "C:\wamp64\www\LCS_mobile\SQL\lcs_mobile.sql"
 
+- Cette base est lié à l'application mobile donc toutes les modifications faites sur le Web seront automatiquement à jour sur le mobile 
+
 - Si tout est bien fait, aucun code n'est à modifier pour les chemins ou autre
 
 
