@@ -373,7 +373,6 @@ class view
                     <div class="form-group mt'3">
                       <label for="type_intervention">Type</label>
                       <select name="type_intervention" id="type_intervention" class="form-control">
-                        <option value="pre-visite">Pré-visite</option>
                         <option value="intervention">Intervention</option>
                       </select>
                     </div>
