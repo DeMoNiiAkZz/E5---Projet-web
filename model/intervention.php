@@ -232,6 +232,13 @@ class intervention
         $stmt_select_devis->execute();
         $devis_paths = $stmt_select_devis->fetchAll(PDO::FETCH_COLUMN);
 
+        $sql_select_fichier = "SELECT chemin FROM fichier WHERE id_intervention = :id";
+        $stmt_select_fichier = $this->pdo->prepare($sql_select_fichier);
+        $stmt_select_fichier->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt_select_fichier->execute();
+        $fichier_paths = $stmt_select_fichier->fetchAll(PDO::FETCH_COLUMN);
+
+
         foreach ($facture_paths as $facture_path) {
             $full_path = $this->urlchemin() . $facture_path;
             if (file_exists($full_path)) {
@@ -253,6 +260,13 @@ class intervention
             }
         }
 
+        foreach ($fichier_paths as $fichier_paths) {
+            $full_path = $this->urlchemin() . $fichier_paths;
+            if (file_exists($full_path)) {
+                unlink($full_path);
+            }
+        }
+
         $delete_facture = "DELETE FROM facture WHERE id_intervention = :id";
         $stmt_facture = $this->pdo->prepare($delete_facture);
         $stmt_facture->bindParam(':id', $id, PDO::PARAM_INT);
@@ -267,6 +281,11 @@ class intervention
         $stmt_devis = $this->pdo->prepare($delete_devis);
         $stmt_devis->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt_devis->execute();
+
+        $delete_fichier = "DELETE FROM fichier WHERE id_intervention = :id";
+        $stmt_fichier = $this->pdo->prepare($delete_fichier);
+        $stmt_fichier->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt_fichier->execute();
 
         $delete_interv = "DELETE FROM intervention WHERE id_intervention = :id";
         $stmt = $this->pdo->prepare($delete_interv);
