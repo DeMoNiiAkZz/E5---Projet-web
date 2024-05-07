@@ -11,7 +11,7 @@ class controller
     public function lcs_admin_login()
     {
         if (isset($_SESSION['admin'])) {
-            header('Location:index.php?action=synthese');
+            header('Location:index.php?action=planning');
             exit();
         }
 
@@ -23,7 +23,7 @@ class controller
                 if ((new admin)->verfiLogin($email, $password)) {
                     (new view)->lcs_admin_login(null, "Connexion réalisée avec succès.<script>
                     setTimeout(function(){
-                        window.location.href = 'index.php?action=synthese'; 
+                        window.location.href = 'index.php?action=planning'; 
                     }, 1000); 
                 </script>");
                 } else {
@@ -68,7 +68,7 @@ class controller
                             if ((new admin)->updateAdmin($id, $_FILES['photo'], $nom, $prenom, $email, $telephone, $adresse, $code_postal, $ville)) {
                                 (new view)->monprofil($admin_details, null, "Les modifications ont bien été enregistrées !<script>
                                 setTimeout(function(){
-                                    window.location.href = 'index.php?action=synthese'; 
+                                    window.location.href = 'index.php?action=planning'; 
                                 }, 1000); 
                             </script>");
                             } else {
@@ -79,7 +79,7 @@ class controller
                             if ((new admin)->updateAdmin($id, null, $nom, $prenom, $email, $telephone, $adresse, $code_postal, $ville)) {
                                 (new view)->monprofil($admin_details, null, "Les modifications ont bien été enregistrées !<script>
                                 setTimeout(function(){
-                                    window.location.href = 'index.php?action=synthese'; 
+                                    window.location.href = 'index.php?action=planning'; 
                                 }, 1000); 
                             </script>");
                             } else {
@@ -102,16 +102,10 @@ class controller
     {
         if (isset($_SESSION['admin'])) {
             session_destroy();
-            header("Location: index.php?action=synthese");
+            header("Location: index.php?action=planning");
             exit();
         }
-        header("Location: index.php?action=synthese");
-    }
-
-    public function syntheseTab()
-    {
-        $this->checkLogin();
-        (new view)->syntheseTab();
+        header("Location: index.php?action=planning");
     }
 
     public function planningTab()

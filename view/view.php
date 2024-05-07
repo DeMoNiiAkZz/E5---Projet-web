@@ -31,7 +31,7 @@ class view
       <header>
         <div class="header d-flex justify-content-between align-items-center">
           <div class="col">
-            <a href="index.php?action=synthese"><img src="pieces_jointe/ico_web/logconnectservices_white.png" width="150px" height="120px" /></a>
+            <a href="index.php?action=planning"><img src="pieces_jointe/ico_web/logconnectservices_white.png" width="150px" height="120px" /></a>
           </div>
           <div class="col">
             <div class="flex-grow-1">Dashboard Admin</div>
@@ -87,9 +87,6 @@ class view
     echo '
     <div class="container-fluid">
     <ul class="nav nav-tabs" id="" role="tablist">
-    <li class="nav-item">
-    <a class="nav-link ' . ((!isset($_GET['action']) || $_GET['action'] == 'synthese') ? 'active' : '') . '" id="synthese-tab" href="index.php?action=synthese">Synthèse</a>
-  </li>
   <li class="nav-item">
     <a class="nav-link ' . ((isset($_GET['action']) && ($_GET['action'] == 'planning' || $_GET['action'] == 'details_intervention'  || $_GET['action'] == 'pieces_jointes')) ? 'active' : '') . ' " id="planning-tab" href="index.php?action=planning">Planning';
     if ($nombreInterventionsTerminees > 0) {
@@ -252,14 +249,6 @@ class view
     $this->footer();
   }
 
-  public function syntheseTab()
-  {
-    $this->header('Synthèse');
-    $this->tabs();
-    echo 'Synthèse';
-
-    $this->footer();
-  }
 
 
   public function planningTab($techniciens, $selectedTechnicienId, $interventions, $stocks, $errorMess, $successMess)
@@ -602,11 +591,11 @@ class view
                       interventionHtml += '<p><i class="bi bi-exclamation-triangle"></i> ' + intervention.statut + '</p>';
                       break;
                     case 'Validée':
-                      interventionHtml += '<p class="text-success"><i class="bi bi-check-circle-fill"></i>'+ intervention.statut + '</p>';
+                      interventionHtml += '<p class="text-success"><i class="bi bi-check-circle-fill"></i>' + intervention.statut + '</p>';
                       break;
-                      case 'Refusée':
-                        interventionHtml += '<p class="text-danger"><i class="bi bi-x-circle-fill"></i>'+ intervention.statut + '</p>';
-                        break;
+                    case 'Refusée':
+                      interventionHtml += '<p class="text-danger"><i class="bi bi-x-circle-fill"></i>' + intervention.statut + '</p>';
+                      break;
 
                     default:
                       interventionHtml += '<p>Statut</p>';
@@ -774,11 +763,11 @@ class view
       case 'Reportée':
         $statutIntervention = '<p class="text-danger"><i class="bi bi-exclamation-triangle"></i> ' . $statut . '</p>';
         break;
-      case 'Validée': 
-        $statutIntervention = '<p class="text-success"><i class="bi bi-check-circle-fill"></i> '. $statut. '</p>';
+      case 'Validée':
+        $statutIntervention = '<p class="text-success"><i class="bi bi-check-circle-fill"></i> ' . $statut . '</p>';
         break;
       case 'Refusée':
-        $statutIntervention = '<p class="text-danger"><i class="bi bi-x-circle-fill"></i> '. $statut. '</p>';
+        $statutIntervention = '<p class="text-danger"><i class="bi bi-x-circle-fill"></i> ' . $statut . '</p>';
         break;
       default:
         $statutIntervention = '<p>Statut introuvable</p>';
@@ -1087,7 +1076,7 @@ class view
               </div>
               <div class="card-body">
                 <form action="" method="post">
-                  <input type="hidden" name="id_cri" value="<?=$cri['id_cri']?>">
+                  <input type="hidden" name="id_cri" value="<?= $cri['id_cri'] ?>">
                   <div class="form-group">
                     <label for="validation">Validation du compte rendu :</label>
                     <select class="form-control" id="validation" name="validation">
@@ -1449,10 +1438,10 @@ class view
           var myChart = new Chart(ctx, {
             type: "bar",
             data: {
-              labels: ["Interventions validées : <?= $nombreInterventionValidees ?>","Interventions refusée : <?= $nombreInterventionRefusee ?>", "Intervention à faire <?= $nombreInterventionAfaire ?>", "Intervention en cours <?= $nombreInterventionEnCours ?>", "Interventions reportées <?= $nombreInterventionReportee ?>"],
+              labels: ["Interventions validées : <?= $nombreInterventionValidees ?>", "Interventions refusée : <?= $nombreInterventionRefusee ?>", "Intervention à faire <?= $nombreInterventionAfaire ?>", "Intervention en cours <?= $nombreInterventionEnCours ?>", "Interventions reportées <?= $nombreInterventionReportee ?>"],
               datasets: [{
                 label: "Nombre d'interventions totales : <?= $totalIntervention ?>",
-                data: [<?= $nombreInterventionValidees ?>,<?= $nombreInterventionRefusee ?>, <?= $nombreInterventionAfaire ?>, <?= $nombreInterventionEnCours ?>, <?= $nombreInterventionReportee ?>],
+                data: [<?= $nombreInterventionValidees ?>, <?= $nombreInterventionRefusee ?>, <?= $nombreInterventionAfaire ?>, <?= $nombreInterventionEnCours ?>, <?= $nombreInterventionReportee ?>],
                 backgroundColor: [
                   "rgba(0, 102, 255)",
                   "rgba(255, 83, 26)",
@@ -2559,7 +2548,7 @@ class view
       <d iv class="container d-flex flex-column align-items-center" style="height: 100vh;">
         <img src="pieces_jointe/ico_web/error404.png" alt="Erreur 404" width="600" height="600">
         <div class="text-center mt-3">
-          <small>Votre page semble introuvable, cliquez <a href="index.php?action=synthese">ici pour revenir</a> à l'accueil.</small>
+          <small>Votre page semble introuvable, cliquez <a href="index.php?action=planning">ici pour revenir</a> à l'accueil.</small>
         </div>
         </div>
     <?php

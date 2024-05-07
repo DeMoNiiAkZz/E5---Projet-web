@@ -50,10 +50,6 @@ if (isset($_GET["action"])) {
         case "logout":
             (new controller)->logout();
             break;
-        case "synthese":
-            (new controller)->syntheseTab();
-            break;
-
             //planning
         case "planning":
             (new controller)->planningTab();
@@ -150,5 +146,5 @@ if (isset($_GET["action"])) {
             break;
     }
 } else {
-    (new controller)->syntheseTab();
+    (new controller)->planningTab();
 }
