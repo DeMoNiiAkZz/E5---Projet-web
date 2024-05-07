@@ -122,16 +122,36 @@ class conversation
     {
         $chemin1 = $this->urlchemin();
         $chemin2 = "pieces_jointe/conversation/";
-        $uniqueFileName = pathinfo($fichier["name"], PATHINFO_FILENAME) . '_' . uniqid() . '.' . pathinfo($fichier["name"], PATHINFO_EXTENSION);
+
+        $extension = strtolower(pathinfo($fichier["name"], PATHINFO_EXTENSION));
+
+        if ($extension != "pdf" && !in_array($extension, array("jpg", "jpeg", "png", "gif"))) {
+  
+            return false;
+        }
+
+        $file_type = '';
+        if (in_array($extension, array("jpg", "jpeg", "png", "gif"))) {
+            $file_type = exif_imagetype($fichier["tmp_name"]);
+        } elseif ($extension == "pdf") {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $file_type = finfo_file($finfo, $fichier["tmp_name"]);
+            finfo_close($finfo);
+        }
+
+        if (!in_array($file_type, array("image/jpeg", "image/png", "image/gif", "application/pdf"))) {
+            return false;
+        }
+
+        $uniqueFileName = pathinfo($fichier["name"], PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
         $target_file = $chemin1 . $chemin2 . $uniqueFileName;
 
         $fichier_bdd = $chemin2 . $uniqueFileName;
 
         $type = "Fichier";
         if (move_uploaded_file($fichier["tmp_name"], $target_file)) {
-
             $sql = "INSERT INTO communication (id_envoyeur, type_message, message, datetime, id_conversation) 
-            VALUES (:id_envoyeur, :type_message, :message, NOW(), :id_conversation)";
+        VALUES (:id_envoyeur, :type_message, :message, NOW(), :id_conversation)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id_envoyeur', $_SESSION['admin'], PDO::PARAM_INT);
             $stmt->bindParam(':type_message', $type);

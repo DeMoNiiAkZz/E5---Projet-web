@@ -382,6 +382,13 @@ class technicien
     {
         $chemin1 = $this->urlchemin();
         $chemin2 = "pieces_jointe/technicien/";
+        $image_type = exif_imagetype($photo["tmp_name"]);
+        if ($image_type === false) {
+            return false;
+        }
+        if (!in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP), true)) {
+            return false;
+        }
         $target_file = $chemin1 . $chemin2 . basename($photo["name"]);
 
         $nom = htmlspecialchars($nom);
@@ -446,10 +453,19 @@ class technicien
         $cp = htmlspecialchars($cp);
         $ville = htmlspecialchars($ville);
 
+    
+        if ($photo !== null && $photo['error'] !== UPLOAD_ERR_NO_FILE) {
+            $image_type = exif_imagetype($photo["tmp_name"]);
+            if ($image_type === false || !in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP), true)) {
+                return false;
+            }
+        }
+
         if ($photo !== null && $photo['error'] !== UPLOAD_ERR_NO_FILE) {
             $target_file = $chemin1 . $chemin2 . basename($photo["name"]);
+        }
 
-
+        if ($photo !== null && $photo['error'] !== UPLOAD_ERR_NO_FILE) {
             if (move_uploaded_file($photo["tmp_name"], $target_file)) {
 
                 $sql = "UPDATE utilisateur SET nom = :nom, prenom = :prenom, email = :email, 
@@ -632,7 +648,7 @@ class technicien
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':id_technicien', $id_technicien, PDO::PARAM_INT);
             if (!$stmt->execute()) {
-                return false; 
+                return false;
             }
         }
         return true;

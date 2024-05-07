@@ -49,21 +49,37 @@ class stock
     public function addStock($nom, $description, $reference, $quantite, $photos)
     {
         $sql = "INSERT INTO stock (reference,nom, description,quantite)
-        VALUES (:reference,:nom,:description,:quantite)";
+    VALUES (:reference,:nom,:description,:quantite)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':nom', $nom);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':reference', $reference);
         $stmt->bindParam(':quantite', $quantite);
+
         if ($stmt->execute()) {
             $last_id = $this->pdo->lastInsertId();
             $chemin1 = $this->urlchemin();
             $chemin2 = "pieces_jointe/stock/";
-            foreach ($photos['name'] as $key => $photoName) {
 
+            foreach ($photos['name'] as $key => $photoName) {
                 $filePath = pathinfo($photos["name"][$key], PATHINFO_FILENAME) . '_' . uniqid() . '.' . pathinfo($photos["name"][$key], PATHINFO_EXTENSION);
                 $target_file = $chemin1 . $chemin2 . $filePath;
                 $image_bdd = $chemin2 . $filePath;
+
+               
+                $image_type = exif_imagetype($photos['tmp_name'][$key]);
+                if ($image_type === false || !in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP), true)) {
+                    return false; 
+                }
+
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime_type = finfo_file($finfo, $photos['tmp_name'][$key]);
+                finfo_close($finfo);
+
+                if (!in_array($mime_type, array("image/jpeg", "image/png", "image/gif", "image/bmp"), true)) {
+                    return false; 
+                }
+
                 if (move_uploaded_file($photos['tmp_name'][$key], $target_file)) {
                     $sql_photo = "INSERT INTO fichier (chemin, id_stock)
                 VALUES (:chemin, :id_stock)";
@@ -71,20 +87,19 @@ class stock
                     $stmt_photo->bindParam(':chemin', $image_bdd);
                     $stmt_photo->bindParam(':id_stock', $last_id);
                     if ($stmt_photo->execute()) {
-                        return true;
+                        continue;
                     } else {
                         return false;
                     }
                 } else {
-
                     return false;
                 }
             }
+            return true;
         } else {
             return false;
         }
     }
-
     public function deleteProduct($id)
     {
         $sql_select = "SELECT chemin FROM fichier WHERE id_stock = :id";
@@ -156,19 +171,18 @@ class stock
         return $allTrue;
     }
 
-    public function getStockForIntervention($id) {
+    public function getStockForIntervention($id)
+    {
         $sql = "SELECT stock.*, fichier.chemin AS chemin, intervention_stock.quantite AS quantite_utilisee
                 FROM intervention_stock
                 INNER JOIN stock  ON intervention_stock.id_stock = stock.id_stock
                 LEFT JOIN fichier ON stock.id_stock = fichier.id_stock 
                 WHERE intervention_stock.id_intervention = :id";
-    
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-    
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    
 }

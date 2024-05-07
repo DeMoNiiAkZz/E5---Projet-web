@@ -840,7 +840,7 @@ class controller
                         }, 10); 
                     </script>");
                         } else {
-                            (new view)->conversation($conversation, $message, "Erreur lors de l'envoi du message", null);
+                            (new view)->conversation($conversation, $message, "Erreur lors de l'envoi du message, assurez-vous d'envoyer une image ou un pdf", null);
                         }
                     } else {
                         (new view)->conversation($conversation, $message, "Veuillez saisir votre message ou sélectionner un fichier.", null);

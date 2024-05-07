@@ -139,7 +139,19 @@ class intervention
         $nom_affichage = htmlspecialchars($nom_affichage);
         $chemin1 = $this->urlchemin();
         $chemin2 = "pieces_jointe/$type/";
-        $uniqueFileName = pathinfo($file["name"], PATHINFO_FILENAME) . '_' . uniqid() . '.' . pathinfo($file["name"], PATHINFO_EXTENSION);
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+
+        $mime_type = finfo_file($finfo, $file["tmp_name"]);
+
+        finfo_close($finfo);
+
+        if ($mime_type !== "application/pdf") {
+            return false; 
+        }
+
+        $extension = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
+        $uniqueFileName = pathinfo($file["name"], PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
         $target_file = $chemin1 . $chemin2 . $uniqueFileName;
 
         if (move_uploaded_file($file["tmp_name"], $target_file)) {
@@ -173,6 +185,7 @@ class intervention
             return false;
         }
     }
+
 
 
     public function addIntervention($type, $technicien, $client, $categorie, $description, $date, $duree)
@@ -306,7 +319,7 @@ class intervention
 
     public function getLastInsertedInterventionId()
     {
-        $sql = "SELECT MAX(id_intervention) AS last_id FROM intervention"; 
+        $sql = "SELECT MAX(id_intervention) AS last_id FROM intervention";
         $stmt = $this->pdo->query($sql);
         $lastInsertedId = $stmt->fetchColumn();
 

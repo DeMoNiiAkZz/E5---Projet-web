@@ -2171,13 +2171,6 @@ class view
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card">
-                <h5 class="card-header bg-info text-white">Statistiques</h5>
-                <div class="card-body">
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="card">
@@ -2300,7 +2293,7 @@ class view
                   </div>
                   <div class="form-group">
                     <label for="file">Envoyer un fichier (PDF ou image) :</label>
-                    <input type="file" class="form-control-file" id="file" name="file">
+                    <input type="file" class="form-control-file" id="file" name="file" accept="image/*, application/pdf">
                   </div>
                   <button type="submit" name="send_message" class="btn btn-primary">Envoyer</button>
                 </form>
