@@ -905,6 +905,10 @@ class controller
         (new view)->checklistTab();
     }
 
+    public function politique_confidentialite(){
+        (new view)->politique_confidentialite();
+    }
+
     public function error404()
     {
         $this->checkLogin();

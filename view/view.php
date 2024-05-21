@@ -151,6 +151,12 @@ class view
                     <label for="password" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="••••••••••••">
                   </div>
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="acceptRgpd" name="acceptRgpd" required>
+                    <label class="form-check-label" for="acceptRgpd">
+                      J'accepte les <a href="index.php?action=politique_confidentialite" target="_blank">politiques de confidentialité</a>.
+                    </label>
+                  </div>
                   <div class="md-3 text-center">
                     <button type="submit" name="login_admin" class="btn btn-primary w-25">Se connecter</button>
                   </div>
@@ -159,7 +165,6 @@ class view
             </div>
           </div>
         </div>
-      </div>
       </div>
     <?php
   }
@@ -2532,6 +2537,73 @@ class view
 
         $this->footer();
       }
+
+
+      public function politique_confidentialite()
+      {
+        $this->header('Politique de Confidentialité');
+    ?>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Politique de Confidentialité</h1>
+            <p>Dernière mise à jour : 21/02/2024</p>
+
+            <h2>1. Introduction</h2>
+            <p>Nous attachons une grande importance à la protection de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos informations.</p>
+
+            <h2>2. Données collectées</h2>
+            <p>Nous collectons les données suivantes :</p>
+            <ul>
+              <li>Informations d'identification (nom, adresse e-mail, etc.)</li>
+              <li>Données de connexion (adresse IP, type de navigateur, etc.)</li>
+              <li>Informations financières (numéro de carte de crédit, etc.) si nécessaire</li>
+            </ul>
+
+            <h2>3. Utilisation des données</h2>
+            <p>Nous utilisons vos données pour :</p>
+            <ul>
+              <li>Fournir et améliorer nos services</li>
+              <li>Communiquer avec vous</li>
+              <li>Assurer la sécurité de notre plateforme</li>
+              <li>Se conformer à nos obligations légales</li>
+            </ul>
+
+            <h2>4. Partage des données</h2>
+            <p>Nous ne partageons pas vos données personnelles avec des tiers, sauf dans les cas suivants :</p>
+            <ul>
+              <li>Lorsque cela est nécessaire pour fournir nos services</li>
+              <li>Pour se conformer à une obligation légale</li>
+              <li>Avec votre consentement explicite</li>
+            </ul>
+
+            <h2>5. Stockage et protection des données</h2>
+            <p>Nous mettons en place des mesures de sécurité appropriées pour protéger vos données contre les accès non autorisés, les modifications, les divulgations ou les destructions. Vos données sont stockées sur des serveurs sécurisés.</p>
+
+            <h2>6. Vos droits</h2>
+            <p>Vous disposez des droits suivants concernant vos données personnelles :</p>
+            <ul>
+              <li>Accès à vos données</li>
+              <li>Correction de vos données</li>
+              <li>Suppression de vos données</li>
+              <li>Opposition à l'utilisation de vos données</li>
+              <li>Portabilité de vos données</li>
+            </ul>
+            <p>Pour exercer ces droits, veuillez nous contacter à contact@logconnectservices.com.</p>
+
+            <h2>7. Modifications de la politique de confidentialité</h2>
+            <p>Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Nous vous informerons de tout changement en publiant la nouvelle politique sur notre site web.</p>
+
+            <h2>8. Contact</h2>
+            <p>Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, veuillez nous contacter à :</p>
+            <p>Log Connect Services<br>17 bis Rue André Maginot, 55800, Revigny-sur-Ornain<br>contact@logconnectservices.com</p>
+          </div>
+        </div>
+      </div>
+    <?php
+        $this->footer();
+      }
+
 
       public function error404()
       {

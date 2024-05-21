@@ -137,6 +137,10 @@ if (isset($_GET["action"])) {
             (new controller)->checklistTab();
             break;
 
+        case "politique_confidentialite":
+            (new controller)->politique_confidentialite();
+            break;
+
         case "error404":
             (new controller)->error404();
             break;
